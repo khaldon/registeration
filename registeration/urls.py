@@ -18,5 +18,6 @@ from django.urls import path,include
 from log_sign_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index, name='index')
+    path('',views.index, name='index'),
+    path('register/', include('log_sign_app.urls'))
 ]
