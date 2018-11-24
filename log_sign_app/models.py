@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+<<<<<<< HEAD
 class SignUp(models.Model):
     username = models.CharField(blank=False, max_length=100)
     email = models.EmailField()
@@ -12,3 +13,5 @@ class SignUp(models.Model):
 class LogIn(models.Model):
     username = models.CharField(blank=True, max_length=100)
     password = models.CharField(blank=True, max_length=100)
+=======
+>>>>>>> parent of e2d27e5... editing
