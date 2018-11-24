@@ -1,20 +1,35 @@
-.panel-heading {
-    padding: 5px 15px;
-}
 
-.panel-footer {
-	padding: 1px 15px;
-	color: #A0A0A0;
+/* Full-width input fields */
+input[type=text], input[type=password] ,input[type=email] {
+    width: 60%;
+    padding: 8px;
+    margin: 5px 0 22px 0;
+    display: block;
+    border: 1px solid #4CAF50;
+    background: #f1f1f1;
 }
-
-.profile-img {
-	width: 96px;
-	height: 96px;
-	margin: 0 100px 10px;
-	display: block;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
+label{
 
 }
-.form-control { margin-bottom: 10px; }
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Add padding to container elements */
+.content {
+    padding: 16px;
+    width: 50%;
+
+}

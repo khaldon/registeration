@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+  </head>
+  <body>
+    <form  method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+          {{ form.your_name.errors }}
+          {{ form.your_name.label_tag }}
+          {{ form.your_name }}
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+  </body>
+</html>
