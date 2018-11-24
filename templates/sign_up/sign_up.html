@@ -3,6 +3,7 @@
 {% block sign_up_content %}
 <div class="content">
   <form class="" action="" method="post">
+    {% csrf_token %}
     {{ form.non_field_errors }}
 <div class="fieldWrapper">
     {{ form.username.errors }}
