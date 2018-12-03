@@ -11,28 +11,34 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Home</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'log_sign_app:sign_up' %}">Sign Up <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'admin:index' %}">DJANGO</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'log_sign_app:log_in' %}">Log In <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'index' %}">admin</a>
             </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'log_sign_app:register' %}">register</a>
+            </li>
+
+            {% if user.is_authenticated %}
+            <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a class="nav-link" href="{% url 'log_sign_app:user_login' %}">Login</a></li>
+            {%endif%}
           </ul>
         </div>
       </nav>
-      {% block sign_up_content %}
-
+      {% block register %}
       {% endblock %}
-
-      {% block log_in_content %}
-
-      {% endblock %}
+      
       {% block content %}
-
       {% endblock %}
+
+      {% block body_block%}
+      {% endblock%}
     </div>
   </body>
 </html>

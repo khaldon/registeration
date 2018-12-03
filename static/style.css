@@ -1,6 +1,6 @@
 
 /* Full-width input fields */
-input[type=text], input[type=password] ,input[type=email] {
+input[type=text], input[type=password] ,input[type=email],#id_portfolio_site {
     width: 60%;
     padding: 8px;
     margin: 5px 0 22px 0;
@@ -8,24 +8,13 @@ input[type=text], input[type=password] ,input[type=email] {
     border: 1px solid #4CAF50;
     background: #f1f1f1;
 }
-label{
 
-}
 /* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 50%;
-    opacity: 0.9;
+#submit_form{
+  margin-bottom: 60px;
 }
 
-button:hover {
-    opacity:1;
-}
+
 
 /* Add padding to container elements */
 .content {

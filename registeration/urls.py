@@ -19,5 +19,7 @@ from log_sign_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name='index'),
-    path('register/', include('log_sign_app.urls'))
+    path('log_sign/', include('log_sign_app.urls')),
+    path('logout/',views.user_logout, name='logout'),
+    path('special/',views.special, name='special')
 ]

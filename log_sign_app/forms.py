@@ -1,19 +1,17 @@
 from django import forms
-from . import models
+from django.contrib.auth.models import User
+from . models import UserModelProfile
 
-class FormSignUp(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta():
-        model = models.SignUp
-        fields = ['username','email','password','re_password']
+        model = User
+        fields = ['username','email','password']
         widgets = {
         'password':forms.PasswordInput(),
-        're_password':forms.PasswordInput()
         }
 
-class FormLogIn(forms.ModelForm):
+class UserModelProfileForm(forms.ModelForm):
     class Meta():
-        model = models.LogIn
-        fields = ['username','password']
-        widgets = {
-        'password':forms.PasswordInput()
-        }
+        model = UserModelProfile
+        fields = ['portfolio_site','portfile_pic']
+    

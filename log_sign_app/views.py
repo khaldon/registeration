@@ -1,42 +1,66 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect,HttpResponse
-from django.contrib.auth.hashers import make_password
-from . import forms
-from . import models
-# Create your views here.
+from django.contrib.auth.models import User
+from . forms import UserForm,UserModelProfileForm
+from django.contrib.auth import authenticate,login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
 def index(request):
     return render(request,'index.html')
 
-def get_sign_up(request):
-    if request.method == 'POST':
-        form = forms.FormSignUp(request.POST)
-        if form.is_valid():
-            username    = form.cleaned_data['username']
-            email       = form.cleaned_data['email']
-            password    = form.cleaned_data['password']
-            re_password = form.cleaned_data['re_password']
-            make_password(password)
-            form.save()
+@login_required
+def special(request):
+    return HttpResponse("You are logged in ")
 
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+def register(request):
+    registered = False
+    if request.method ==  'POST':
+        user_form = UserForm(data=request.POST)
+        profile_form = UserModelProfileForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            if 'profile_pic' in request.FILES:
+                profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+            registered = True
+        else:
+            print(user_form.errors,profile_form.errors)
     else:
-        form = forms.FormSignUp()
-    return render(request,'sign_up/sign_up.html',{'form':form})
+        user_form = UserForm()
+        profile_form = UserModelProfileForm()
+
+    return render(request,'registeration/register.html',{'user_form':user_form,
+                                                         'profile_form':profile_form,
+                                                         'registered':registered})
 
 
-def log_in(request):
 
+def user_login(request):
     if request.method == 'POST':
-        form = forms.FormLogIn(request.POST)
-        if form.is_valid():
-            username    = form.cleaned_data['username']
-            password    = form.cleaned_data['password']
-            data_get    = models.SignUp.objects.order_by('username')
-            for i in data_get:
-                if i.username == username and i.password == password:
-                    print("HEllo word")
-                else:
-                    print("Error in user")
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse(reverse('Account Not Active'))
+        else:
+            print("Someone tried to login in")
+            print("Username: {} and password {}".format(username,password))
+            return HttpResponse("invalid login details supplied ")
     else:
-        form = forms.FormLogIn()
-    return render(request,'log_in/log_in.html',{'form':form})
+        return render(request,'registeration/login.html',{})
